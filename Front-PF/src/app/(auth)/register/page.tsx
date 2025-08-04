@@ -29,9 +29,6 @@ export default function Register() {
   const  handleSubmit = async (
     values: IUserRegister,
   ) => {
-  console.log("🔍 [DEBUG] Valores del formulario:", values)
-  console.log("🔍 [DEBUG] Tipo de datos:", typeof values)
-  console.log("🔍 [DEBUG] Estructura de datos:", JSON.stringify(values, null, 2))
     try {
     const res = await postRegister(values)
     console.log("🔍 [DEBUG] Respuesta completa del registro:", res)

@@ -42,6 +42,7 @@ export const postRegister = async (data: IUserRegister) => {
     }
     return {
       message: "Error al conectar con el servidor",
+      error: err.response?.data || "Error desconocido",
     };
   }
 };
