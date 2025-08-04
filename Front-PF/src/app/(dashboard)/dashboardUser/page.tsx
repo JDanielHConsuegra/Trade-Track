@@ -2,7 +2,6 @@
 import { ContributionChart } from "@/components/contributionChart";
 import { DonutChart } from "@/components/donutChart";
 import { UserStatsSection } from "@/components/profile/userStatsSection";
-import { SubscriptionGuard } from "@/components/SubscriptionGuard";
 import { IProduct, IProvider, ITrip, ProductState } from "@/types";
 import { useAuthContext } from "@/context/authContext";
 import { useEffect, useState } from "react";
@@ -107,7 +106,6 @@ const userStats = {
 };
 
   return (
-    <SubscriptionGuard>
       <div className="flex min-h-screen">
         <main className="flex-1 p-8">
           <UserStatsSection userStats={userStats} />
@@ -127,6 +125,5 @@ const userStats = {
           </div>
         </main>
       </div>
-    </SubscriptionGuard>
   );
 }
