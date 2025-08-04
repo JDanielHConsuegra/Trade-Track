@@ -47,6 +47,8 @@ export default function Register() {
     }
     if (res.message === "Error al conectar con el servidor") {
       toast.error(res.message)
+      console.log("🔍 [DEBUG] Error al conectar con el servidor:", res.error);
+      
       return
     }
     else {
