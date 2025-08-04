@@ -4,7 +4,8 @@
   "description": "Backend API con NestJS",
   "main": "dist/main.js",
   "_moduleAliases": {
-    "@": "dist"
+    "@": "dist",
+    "src": "dist"
   },
   "scripts": {
     "build": "npm install && tsc && npm run copy:templates",
