@@ -12,6 +12,7 @@ import { useParams, useRouter } from "next/navigation";
 // import { FaMapMarkedAlt } from "react-icons/fa";
 import { createTripsProviders } from "@/service/trips";
 import { useAuthContext } from "@/context/authContext";
+import { FaEarthAmericas } from 'react-icons/fa6';
 
 
 export default function NuevoProveedorPage() {
@@ -20,6 +21,10 @@ export default function NuevoProveedorPage() {
     const { id } = useParams<{ id: string }>();
     const router = useRouter();
     const { token } = useAuthContext();
+
+    const handleMaps = () => {
+        toast.info("Funcionalidad de mapas próximamente disponible");
+    }
 
     const initialValues: CreateProvider = {
         name: "",
@@ -88,90 +93,7 @@ export default function NuevoProveedorPage() {
                 {(formik) => (
                     <Form className="w-full max-w-[650px] mt-4">
 
-                        {/* <div className="flex justify-between mb-4"> 
-                    <div className="flex flex-col">
-                    <label htmlFor="">Foto</label>
-                    <div className="w-50 h-33 flex justify-center items-center bg-[#D9D9D9] rounded-[10px] "><FaRegImage className="w-16 h-12 text-gray-500 " /></div>
-                    </div>
-
-                    <div className="flex flex-col">
-                    <label>Agregar Mas fotos</label>
-
-                    <div className="flex gap-1 flex-wrap w-41">
-                    <label htmlFor="image" className="bg-[#D9D9D9] flex justify-center items-center w-20 h-16 rounded-[10px] cursor-pointer" onClick={() => setShowModal(true)}>
-                    <FaPlus className="text-xl text-gray-600" />
-                    <Field
-                        type="file"
-                        name="image"
-                        className="hidden"
-                    />
-                    </label>
-                    <label onClick={() => setShowModal(true)} htmlFor="image" className="bg-[#D9D9D9] flex justify-center items-center w-20 h-16 rounded-[10px] cursor-pointer">
-                    <FaPlus className="text-xl text-gray-600" />
-                    <Field
-                        type="file"
-                        name="image"
-                        className="hidden"
-                    />
-                    </label>
-                    <label onClick={() => setShowModal(true)} htmlFor="image" className="bg-[#D9D9D9] flex justify-center items-center w-20 h-16 rounded-[10px] cursor-pointer">
-                    <FaPlus className="text-xl text-gray-600" />
-                    <Field
-                        type="file"
-                        name="image"
-                        className="hidden"
-                    />
-                    </label>
-                    <label onClick={() => setShowModal(true)} htmlFor="image" className="bg-[#D9D9D9] flex justify-center items-center w-20 h-16 rounded-[10px] cursor-pointer">
-                    <FaPlus className="text-xl text-gray-600" />
-                    <Field
-                        type="file"
-                        name="image"
-                        className="hidden"
-                    />
-                    </label>
-                    
-                    </div>
-                    </div>
-                    </div>
-
-                    {showModal && (
-                    <div className="fixed inset-0 bg-gray-600/60 backdrop-blur-[2px] flex justify-center items-end z-50">
-                        <div className="bg-white shadow-lg p-6 w-full xl:max-w-md rounded-lg">
-                        <div className="flex justify-between items-start mb-4">
-                        <h2 className="text-lg font-bold mb-4 text-start">Añadir Una Foto</h2>
-                        <button onClick={()=>{
-                            setShowModal(false);
-                            toast.info("Cerraste el modal de fotos");
-                        }}><FaRegWindowClose className="text-black cursor-pointer text-2xl"></FaRegWindowClose></button>
-                        </div>
-                        <button
-                            type="button"
-                            onClick={() => {
-                            document.getElementById("image")?.click();
-                            toast.success("Elegiste Seleccionar de archivos");
-                            setShowModal(false);
-                            }}
-                            className="w-full hover:shadow-2xl hover:bg-gray-200 cursor-pointer m-auto py-2 mb-3 rounded text-start"
-                        >
-                        <FaRegImage className="inline mr-2 text-2xl text-black" />
-                            Seleccionar de archivos
-                        </button>
-                        <button
-                            type="button"
-                            onClick={() => {
-                            document.getElementById("image")?.click();
-                            toast.success("Elegiste Tomar foto");
-                            setShowModal(false);
-                            }}
-                            className="w-full hover:shadow-2xl hover:bg-gray-200 cursor-pointer m-auto py-2 mb-3 rounded text-start"
-                        >
-                        <FaCamera className="inline mr-2 text-2xl text-black" />
-                        Tomar foto
-                        </button>
-                        </div>
-                    </div>
-                    )} */}
+                        
                         <div className="flex justify-between *:w-4/10 gap-4">
                             <div className="flex flex-col mb-4">
                                 <label htmlFor="name">Nombre</label>
@@ -226,7 +148,7 @@ export default function NuevoProveedorPage() {
                                 />
                                 <ErrorMessage name="gps_location" component="div" className="text-red-500" />
                             </div>
-
+                            <FaEarthAmericas onClick={handleMaps} className="text-5xl cursor-pointer hover:scale-110 transition-all duration-200" />
                         </div>
 
                         <div className="flex flex-col mb-4 pt-4">

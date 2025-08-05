@@ -60,40 +60,41 @@ export default function Login() {
 
   // Función para manejar login con Google via Auth0
   const handleGoogleLogin = () => {
-    console.log("🔍 [GOOGLE LOGIN] Iniciando login con Google...")
-    console.log("🔍 [GOOGLE LOGIN] Todas las variables de entorno:")
-    console.log("🔍 [GOOGLE LOGIN] process.env:", process.env)
+    // console.log("🔍 [GOOGLE LOGIN] Iniciando login con Google...")
+    // console.log("🔍 [GOOGLE LOGIN] Todas las variables de entorno:")
+    // console.log("🔍 [GOOGLE LOGIN] process.env:", process.env)
     
-    // URL de Auth0 para login con Google
-    // Necesitarás configurar esto en tu dashboard de Auth0
-    const auth0Domain = process.env.NEXT_PUBLIC_AUTH0_DOMAIN
-    const auth0ClientId = process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID
-    const redirectUri = `${window.location.origin}/callback`
+    // // URL de Auth0 para login con Google
+    // // Necesitarás configurar esto en tu dashboard de Auth0
+    // const auth0Domain = process.env.NEXT_PUBLIC_AUTH0_DOMAIN
+    // const auth0ClientId = process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID
+    // const redirectUri = `${window.location.origin}/callback`
     
-    console.log("🔍 [GOOGLE LOGIN] Auth0 Domain:", auth0Domain)
-    console.log("🔍 [GOOGLE LOGIN] Auth0 Client ID:", auth0ClientId)
-    console.log("🔍 [GOOGLE LOGIN] Redirect URI:", redirectUri)
-    console.log("🔍 [GOOGLE LOGIN] Window origin:", window.location.origin)
+    // console.log("🔍 [GOOGLE LOGIN] Auth0 Domain:", auth0Domain)
+    // console.log("🔍 [GOOGLE LOGIN] Auth0 Client ID:", auth0ClientId)
+    // console.log("🔍 [GOOGLE LOGIN] Redirect URI:", redirectUri)
+    // console.log("🔍 [GOOGLE LOGIN] Window origin:", window.location.origin)
     
-    if (!auth0Domain || !auth0ClientId) {
-      console.error("❌ [GOOGLE LOGIN] Configuración de Auth0 no encontrada")
-      console.error("❌ [GOOGLE LOGIN] Domain:", auth0Domain)
-      console.error("❌ [GOOGLE LOGIN] Client ID:", auth0ClientId)
-      toast.error("Configuración de Auth0 no encontrada")
-      return
-    }
+    // if (!auth0Domain || !auth0ClientId) {
+    //   console.error("❌ [GOOGLE LOGIN] Configuración de Auth0 no encontrada")
+    //   console.error("❌ [GOOGLE LOGIN] Domain:", auth0Domain)
+    //   console.error("❌ [GOOGLE LOGIN] Client ID:", auth0ClientId)
+    //   toast.error("Configuración de Auth0 no encontrada")
+    //   return
+    // }
 
-    const auth0Url = `https://${auth0Domain}/authorize?` +
-      `response_type=id_token&` +
-      `client_id=${auth0ClientId}&` +
-      `redirect_uri=${encodeURIComponent(redirectUri)}&` +
-      `scope=openid profile email&` +
-      `nonce=${Math.random().toString(36).substring(2, 15)}`
+    // const auth0Url = `https://${auth0Domain}/authorize?` +
+    //   `response_type=id_token&` +
+    //   `client_id=${auth0ClientId}&` +
+    //   `redirect_uri=${encodeURIComponent(redirectUri)}&` +
+    //   `scope=openid profile email&` +
+    //   `nonce=${Math.random().toString(36).substring(2, 15)}`
 
-    console.log("🔍 [GOOGLE LOGIN] URL de Auth0 construida:", auth0Url)
-    console.log("🚀 [GOOGLE LOGIN] Redirigiendo a Auth0...")
+    // console.log("🔍 [GOOGLE LOGIN] URL de Auth0 construida:", auth0Url)
+    // console.log("🚀 [GOOGLE LOGIN] Redirigiendo a Auth0...")
     
-    window.location.href = auth0Url
+    // window.location.href = auth0Url
+    toast.info("Funcionalidad de login con Google disonible próximamente")
   }
 
   return (
@@ -113,7 +114,7 @@ export default function Login() {
       <div className="w-80 mt-4">
         <button
           onClick={handleGoogleLogin}
-          className="w-full flex items-center justify-center gap-3 px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50 transition-colors"
+          className="w-full cursor-pointer flex items-center justify-center gap-3 px-4 py-3 bg-white border border-gray-300 rounded-lg shadow-sm hover:bg-gray-50 transition-colors"
         >
           <svg className="w-5 h-5" viewBox="0 0 24 24">
             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
