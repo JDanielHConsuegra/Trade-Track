@@ -1,5 +1,4 @@
 // src/service/auth.ts
-"use server";
 
 import { IUserLogin, IUserRegister } from "@/types";
 import axios, { AxiosError } from "axios";
@@ -42,7 +41,7 @@ export const postRegister = async (data: IUserRegister) => {
     }
     return {
       message: "Error al conectar con el servidor",
-      error: err.response?.data || "Error desconocido",
+      error: err,
     };
   }
 };

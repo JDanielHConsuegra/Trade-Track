@@ -21,7 +21,10 @@ export default function Register() {
   const validationSchema = Yup.object().shape({
     username: Yup.string().required("Requerido"),
     email: Yup.string().email("Correo inválido").required("Requerido"),
-    password: Yup.string().min(6, "Mínimo 6 caracteres").required("Requerido"),
+    password: Yup.string()
+      .min(8, "Mínimo 8 caracteres")
+      .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/, "Debe contener al menos una letra minúscula, una mayúscula y un número")
+      .required("Requerido")
     })
 
   const router = useRouter()
@@ -59,7 +62,6 @@ export default function Register() {
   } catch (error) {
       toast.error("Error interno")
       console.error("Error al registrar el usuario:", error)
-    
   }
   }
 
