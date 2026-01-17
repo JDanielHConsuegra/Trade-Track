@@ -8,6 +8,7 @@ import { AiOutlineRollback } from 'react-icons/ai';
 import { FaSignOutAlt } from 'react-icons/fa';
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { MenuDesplegable } from "./MenuDesplegable";
 
 
 interface IProps {
@@ -37,37 +38,7 @@ export const Navbar: React.FC<IProps> = ({ title }) => {
         <BiMenu className="text-4xl text-white" />
         </button>
 
-        {isOpen && (
-            <div className="absolute left-0 top-3 mt-2 w-30 bg-blue-950/90 shadow-lg z-50 rounded-2xl p-2">
-            <ul className="text-sm text-white text-center font-medium **:font-[Poppins] **:hover:bg-blue-900/50 flex flex-col align-center">
-              <li>
-              <Link href="/" className="block w-full p-2 ">
-                Home
-              </Link>
-              </li>
-              <li>
-              <Link href="/viajes" className="block w-full p-2 ">
-                Viajes
-              </Link>
-              </li>
-              <li>
-              <Link href="/productos" className="block w-full p-2 ">
-                Producto
-              </Link>
-              </li>
-              <li>
-              <Link href="/proveedores" className="block w-full p-2 ">
-                Proveedores
-              </Link>
-              </li>
-              <li>
-              <Link href={ user?.admin === false ? "/dashboardUser" : "/dashboardAdmin"} className="block w-full p-2 ">
-                { user?.admin === false ? "P. Usuario" : "P. Admin"}
-              </Link>
-              </li>
-            </ul>
-            </div>
-        )}
+        {isOpen && <MenuDesplegable onClose={()=> setIsOpen(!isOpen)} /> }
       </div>
 
       {/* Título */}

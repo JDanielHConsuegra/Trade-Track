@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 
 interface MetricCardProps {
   title: string;
@@ -14,15 +14,15 @@ export function MetricCard({
   icon,
   color = "bg-blue-100",
   textColor = "text-blue-700",
-}: MetricCardProps) {
+}: MetricCardProps): React.JSX.Element {
   return (
     <div
       className={`p-4 rounded-xl shadow-md flex items-center space-x-4 ${color} transform transition-all duration-200 ease-in-out
         hover:shadow-lg`}
     >
-      <div className={`text-3xl ${textColor}`}>{icon}</div>
+      <div className={`text-3xl md:text-4xl ${textColor}`}>{icon}</div>
       <div>
-        <p className="text-sm font-medium text-gray-600">{title}</p>
+        <p className="text-sm md:text-base font-medium text-gray-600">{title}</p>
         <p className="text-xl font-bold">{value}</p>
       </div>
     </div>

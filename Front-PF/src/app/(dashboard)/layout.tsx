@@ -1,7 +1,8 @@
 "use client"
 import "../globals.css";
-import { Poppins } from 'next/font/google'
-import { Roboto } from 'next/font/google'
+import React, { useEffect, useState } from "react";
+import { Poppins, Roboto } from 'next/font/google'
+
 import 'react-toastify/dist/ReactToastify.css';
 import { Sidebar } from "@/components/sideBar";
 import { Private } from "@/components/Private";
@@ -26,7 +27,7 @@ export default function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>): React.ReactNode {
   return (
     <div className={`${poppins.className} ${roboto.className}`}>
       <ClientOnly>
@@ -36,7 +37,7 @@ export default function DashboardLayout({
   );
 }
 
-function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
+function DashboardLayoutContent({ children }: { children: React.ReactNode }): React.ReactNode {
   const { loading } = useAuthContext();
   if (loading) {
     return <Loading text="Cargando Dashboard..." />;
@@ -56,8 +57,7 @@ function DashboardLayoutContent({ children }: { children: React.ReactNode }) {
 }
 
 // ClientOnly component to ensure children only render on client
-import { useEffect, useState } from "react";
-function ClientOnly({ children }: { children: React.ReactNode }) {
+function ClientOnly({ children }: { children: React.ReactNode }): React.ReactNode {
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     setMounted(true);

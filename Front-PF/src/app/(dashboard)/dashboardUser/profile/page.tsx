@@ -1,19 +1,21 @@
 "use client";
-import { useEffect, useState } from "react";
-import { ProfileHeader } from "@/components/profile/profileHeader";
+import React, { useEffect, useState } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import { FaEdit, FaUser } from 'react-icons/fa';
+import { AiTwotoneMail } from 'react-icons/ai';
+import { toast } from "react-toastify";
+
+import {  GetUserById, patchLogin } from "@/service/user";
 import { UserStatsSection } from "@/components/profile/userStatsSection";
 import { IProduct, IProvider, ITrip, IUser } from "@/types";
 import { useAuthContext } from "@/context/authContext";
 import { getTrips } from "@/service/trips";
 import { getProductsByUser, getProvidersByUser } from "@/service/providerProducts";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
-import { FaEdit, FaUser } from 'react-icons/fa';
-import { AiTwotoneMail } from 'react-icons/ai';
-import {  GetUserById, patchLogin } from "@/service/user";
-import { toast } from "react-toastify";
+import { ProfileHeader } from "@/components/profile/profileHeader";
 
-export default function ProfilePage() {
+
+export default function ProfilePage(): React.ReactNode {
   const { user, token, modificacion, toggleModificacion } = useAuthContext();
   const [trips, setTrips] = useState<ITrip[]>([]);
   const [providers, setProviders] = useState<IProvider[]>([]);
@@ -23,19 +25,18 @@ export default function ProfilePage() {
   const [users, setUsers] = useState<IUser | null>(null);
 
     useEffect(() => {
-            const fetchUser = async () => {
+            const fetchUser = async (): Promise<undefined> => {
                     const data = await GetUserById(user?.id);
                     setUsers(data as IUser);
                     
             };
             fetchUser();
         }, [modificacion, user]);
-        console.log("User Data:", users);
         
 
 
   useEffect(() => {
-          const fetchTrips = async () => {
+          const fetchTrips = async (): Promise<undefined> => {
               if (user && token) {
                   const data = await getTrips(user.id, token);
                   setTrips(Array.isArray(data) ? data : []);
@@ -45,7 +46,7 @@ export default function ProfilePage() {
       }, [user, token]);
 
 useEffect(() => {
-    const fetchProviders = async () => {
+    const fetchProviders = async (): Promise<undefined> => {
       const res = await getProvidersByUser(user?.id)
       if (res) setProviders(res)
       else setProviders([])
@@ -54,7 +55,7 @@ useEffect(() => {
   }, [user])
 
 useEffect(() => {
-      const fetchProducts = async () => {
+      const fetchProducts = async (): Promise<undefined> => {
         const res = await getProductsByUser(user?.id)
         if (Array.isArray(res)) setProducts(res)
         else setProducts([])
@@ -80,13 +81,12 @@ useEffect(() => {
     email: Yup.string().email("Email inválido").required("El email es obligatorio"),
   });
 
-  const toggleUserStatus = async (data: Partial<IUser>) => {
+  const toggleUserStatus = async (data: Partial<IUser>): Promise<undefined> => {
       const valores: Partial<IUser> = {
         username: data.username ?? "",
         email: data.email ?? "",
       }
       
-      console.log("Valores a enviar:", valores);
       try {
         const res = await patchLogin(valores, user?.id);
         
@@ -103,15 +103,14 @@ useEffect(() => {
           toast.error("Error al modificar el usuario");
         }
       } catch (error) {
-        toast.error("Error interno");
-        console.error("Error al modificar el usuario:", error);
+        toast.error("Error interno " + error);
       }
     }
 
 
   return (
     <div className="flex min-h-screen">
-      <main className="flex-1 p-8 bg-gray-100">
+      <main className="flex flex-col p-3 rounded-t-2xl bg-gray-100 w-full mx-auto">
         <div className="mb-8">
         </div>
 
@@ -128,11 +127,11 @@ useEffect(() => {
       validationSchema={validationSchema}
       > 
 
-        <Form className="bg-white mt-10 max-w-120 m-auto p-3 rounded-lg shadow-md space-y-6">
-          <div className="flex mb-10 items-center justify-around">
-          <h2 className="text-2xl text-blue-950 font-bold">Informacion Personal</h2>
+        <Form className="bg-white md:w-1/2 mt-10 m-auto p-6 rounded-lg shadow-md space-y-6">
+          <div className="flex mb-10 items-center justify-between">
+          <h2 className="text-xl md:text-2xl text-blue-950 font-bold">Editar Perfil</h2>
           <div className="flex flex-col items-center gap-2">
-          <button type="submit" className="bg-blue-950 cursor-pointer hover:bg-blue-900 transition-colors duration-200 p-2 rounded text-white flex items-center gap-2 font-bold"><FaEdit className="text-white" /> Editar</button>
+          <button type="submit" className="bg-blue-950 cursor-pointer hover:bg-blue-900 transition-colors duration-200 p-2 rounded text-white flex items-center gap-2 font-bold"><FaEdit className="text-white md:text-3xl" /></button>
           </div>
           </div>
 
@@ -141,7 +140,7 @@ useEffect(() => {
             <FaUser className="text-2xl text-gray-500 mb-2" />
             <label
               htmlFor="username"
-              className="block mb-1 text-black text-left"
+              className="block mb-1 md:text-xl text-black text-left"
             >
               Nombre
             </label>
@@ -150,7 +149,7 @@ useEffect(() => {
             <Field
               name="username"
               type="text"
-              className="w-full px-4 py-2 rounded-[10px] bg-[#D9D9D9] focus:outline-none focus:ring-2"
+              className="w-full md:text-xl px-4 py-2 rounded-[10px] bg-[#D9D9D9] focus:outline-none focus:ring-2"
             />
             <ErrorMessage
               name="username"
@@ -164,7 +163,7 @@ useEffect(() => {
             <AiTwotoneMail className="text-2xl text-gray-500 mb-2" />
             <label
               htmlFor="email"
-              className="block mb-1 text-black text-left"
+              className="block mb-1 md:text-xl text-black text-left"
             >
               Email
             </label>
@@ -172,7 +171,7 @@ useEffect(() => {
             <Field
               name="email"
               type="text"
-              className="w-full px-4 py-2 rounded-[10px] bg-[#D9D9D9] focus:outline-none focus:ring-2"
+              className="w-full md:text-xl px-4 py-2 rounded-[10px] bg-[#D9D9D9] focus:outline-none focus:ring-2"
             />
             <ErrorMessage
               name="email"

@@ -1,25 +1,23 @@
-import { IUser } from "@/types";
-import { ErrorMessage, Form, Formik } from "formik";
-import { FaMailBulk } from 'react-icons/fa';
-import { FaUserTie } from 'react-icons/fa';
-import { FaCameraRetro } from 'react-icons/fa';
-import * as Yup from "yup";
-import {  useState } from "react";
+import Image from "next/image";
 import { toast } from "react-toastify";
+import React, {  useState } from "react";
+import * as Yup from "yup";
+import { FaMailBulk, FaCameraRetro, FaUserTie } from 'react-icons/fa';
+import { ErrorMessage, Form, Formik } from "formik";
+
+import { IUser } from "@/types";
 import { useAuthContext } from "@/context/authContext";
 import { uploadProfileImage } from "@/service/user";
-import Image from "next/image";
 
 interface ProfileHeaderProps {
   profile: IUser | null;
 }
 
-export function ProfileHeader({ profile }: ProfileHeaderProps) {
+export function ProfileHeader({ profile }: ProfileHeaderProps): React.ReactNode {
   const {user, toggleModificacion} = useAuthContext();
-  const toggleImage = async (values: { Image_Profile: File | string }) => {
+  const toggleImage = async (values: { Image_Profile: File | string }): Promise<void> => {
     const valores = new FormData();
     valores.append("file", values.Image_Profile);
-    console.log("Valores enviados:", valores.get("file"));
     
     try {
       const res = await uploadProfileImage(valores, user?.id);
@@ -30,11 +28,9 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
       }
       else {
         toast.info("Error al actualizar la foto de perfil");
-        console.log("error:", res.error);
       }
     } catch (error) {
-      toast.error("Error al actualizar la foto de perfil");
-      console.log("Error al actualizar la foto de perfil:", error);
+      toast.error("Error al actualizar la foto de perfil " + error);
     }
     
   };
@@ -67,21 +63,21 @@ const validationSchema = Yup.object().shape({
   const [modalOpen, setModalOpen] = useState(false);
 
   return (
-    <div className="bg-white m-auto max-w-110 rounded-xl shadow-sm p-4 mb-6">
+    <div className="bg-white md:w-1/2 rounded-xl shadow-sm p-4 mb-6 mx-auto">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Mi Perfil</h1>
+        <h1 className="text-2xl md:text-3xl font-bold text-gray-800">Mi Perfil</h1>
         <button
           onClick={() => setModalOpen(true)}
-          className="text-white cursor-pointer bg-blue-950 p-2 rounded-full hover:bg-blue-900"
+          className="text-white cursor-pointer bg-blue-950 p-3 md:p-4 rounded-full hover:bg-blue-900"
         >
-          <FaCameraRetro className="text-3xl" />
+          <FaCameraRetro className="text-3xl md:text-4xl" />
         </button>
       </div>
 
       {/* Modal */}
       {modalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-900/80">
-          <div className="bg-white rounded-lg p-6 w-[320px]">
+          <div className="bg-white rounded-lg p-3 w-[300px]">
             <h2 className="text-xl font-bold mb-4">Cambiar Foto</h2>
             <Formik
               initialValues={initialValuesForm}
@@ -146,27 +142,27 @@ const validationSchema = Yup.object().shape({
               <Image
                 src={String(profile.Image_Profile)}
                 alt={profile.username || "Avatar"}
-                width={80}
-                height={100}
-                className="rounded-2xl"
+                width={40}
+                height={50}
+                className="rounded-2xl md:size-20"
               />
             ) : (
-              <span className="text-3xl w-[80px] h-[100px] flex items-center justify-center">
+              <span className="text-xl md:text-4xl w-[40px] h-[50px] md:size-20 flex items-center justify-center">
                 {profile?.username?.charAt(0).toUpperCase() || "U"}
               </span>
             )}
           </div>
         </div>
 
-        <div className="flex flex-col justify-center gap-4">
+        <div className="flex w-full flex-col justify-center gap-4">
           <div className="flex justify-start items-center gap-3">
-            <FaUserTie className="text-3xl text-gray-500" />
-            <b>{profile?.username}</b>
+            <FaUserTie className="text-3xl md:text-4xl text-gray-500" />
+            <b className="md:text-xl">{profile?.username}</b>
           </div>
           <hr />
           <div className="flex justify-start items-center gap-3">
-            <FaMailBulk className="text-3xl text-gray-500" />
-            <b>{profile?.email}</b>
+            <FaMailBulk className="text-3xl md:text-4xl text-gray-500" />
+            <b className="md:text-xl">{profile?.email}</b>
           </div>
         </div>
       </div>

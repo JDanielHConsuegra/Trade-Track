@@ -1,9 +1,11 @@
 "use client";
 
-import { MetricCard } from "@/components/metricCard";
-import { FaIndustry, FaProductHunt, FaPlane } from "react-icons/fa";
+import React from "react";
+import { FaIndustry, FaProductHunt, FaPlane, FaUser } from "react-icons/fa";
+
 import { useAuthContext } from "@/context/authContext";
-import { FaUser } from 'react-icons/fa';
+import { MetricCard } from "@/components/metricCard";
+
 
 interface UserStats {
   totalProveedores: number;
@@ -16,7 +18,7 @@ interface UserStatsSectionProps {
   userStats: UserStats;
 }
 
-export function UserStatsSection({ userStats }: UserStatsSectionProps) {
+export function UserStatsSection({ userStats }: UserStatsSectionProps): React.JSX.Element {
   const { user } = useAuthContext();
   return (
     <div className="p-6 flex flex-wrap gap-6 justify-center">

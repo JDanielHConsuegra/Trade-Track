@@ -1,10 +1,13 @@
 // front-pf/src/app/layout.tsx
+import React from "react";
 import type { Metadata } from "next";
 import "./globals.css";
 import { Poppins, Roboto } from 'next/font/google'
 import 'react-toastify/dist/ReactToastify.css';
-import { AuthProvider } from "@/context/authContext";
 import { ToastContainer } from "react-toastify";
+
+import { AuthProvider } from "@/context/authContext";
+
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -27,9 +30,9 @@ export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-}>) {
+}>): React.ReactNode {
   return (
-    <html lang="en">
+    <html className="w-full" lang="en">
       <body className={`${poppins.className} ${roboto.className}`}>
         <AuthProvider>
           {children}

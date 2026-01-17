@@ -1,7 +1,7 @@
 "use client";
+import React from "react";
 import {
   FaUser,
-  FaCog,
   FaTachometerAlt,
   FaPlane,
 } from "react-icons/fa";
@@ -17,6 +17,8 @@ import { IoMenuSharp, IoCloseSharp } from "react-icons/io5";
 import { FaSignOutAlt } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { IUser } from "@/types";
+
 
 interface SidebarItemProps {
   icon: ReactNode;
@@ -59,7 +61,7 @@ export function Sidebar() {
   );
 }
 
-function SidebarContent({ user }: { user: any }) {
+function SidebarContent({ user }: { user: IUser | null }) {
   const { resetUserData } = useAuthContext();
   const router = useRouter();
 
@@ -92,7 +94,6 @@ function SidebarContent({ user }: { user: any }) {
         {!user?.admin ? (
           <>
             <SidebarItem icon={<FaUser />} label="Perfil" href="/dashboardUser/profile" />
-            <SidebarItem icon={<FaCog />} label="Suscripción" href="/dashboardUser/settings" />
           </>
         ) : (
           <>
@@ -110,7 +111,7 @@ function SidebarContent({ user }: { user: any }) {
             <SidebarItem icon={<FaUser />} label="Users" href="/dashboardAdmin/users" />
           </>
         )}
-        <SidebarItem icon={<AiFillHome />} label="Home" href="/" />
+        <SidebarItem icon={<AiFillHome />} label="Inicio" href="/" />
         
         {/* Botón de Logout */}
         <button
@@ -118,14 +119,14 @@ function SidebarContent({ user }: { user: any }) {
           className="flex items-center space-x-3 text-lg py-2 px-3 rounded-lg transition-colors hover:bg-red-600 text-gray-300 hover:text-white mt-auto"
         >
           <FaSignOutAlt />
-          <span>Cerrar Sesión</span>
+          <span className="cursor-pointer">Cerrar Sesión</span>
         </button>
       </nav>
     </>
   );
 }
 
-function SidebarItem({ icon, label, href }: SidebarItemProps) {
+export function SidebarItem({ icon, label, href }: SidebarItemProps): React.ReactElement {
   const pathname = usePathname();
   const isActive = pathname === href;
 

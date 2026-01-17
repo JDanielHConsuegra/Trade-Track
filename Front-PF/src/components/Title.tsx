@@ -2,7 +2,11 @@
 import { usePathname } from "next/navigation";
 import { MdAdminPanelSettings } from 'react-icons/md';
 import { FaUserAlt } from 'react-icons/fa';
+import React from "react";
+
 import { useAuthContext } from "@/context/authContext";
+
+
 
 export const Title: React.FC = () => {
     const pathname = usePathname();
@@ -22,7 +26,7 @@ export const Title: React.FC = () => {
             }</h1>
 
         <span> {
-            user?.admin ? <MdAdminPanelSettings className="text-4xl ml-2 text-white" /> : <FaUserAlt className="text-4xl ml-2 text-white" />
+            user?.admin ? <MdAdminPanelSettings className="text-4xl ml-2 text-white" /> : <FaUserAlt className="text-xl ml-2 text-white" />
             } </span>
         </div>
         </>
