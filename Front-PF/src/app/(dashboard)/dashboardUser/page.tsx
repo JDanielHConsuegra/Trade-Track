@@ -2,7 +2,7 @@
 import { ContributionChart } from "@/components/contributionChart";
 import { DonutChart } from "@/components/donutChart";
 import { UserStatsSection } from "@/components/profile/userStatsSection";
-import { IProduct, IProvider, ITrip, ProductState } from "@/types";
+import { IProduct, IProvider, ITrip } from "@/types";
 import { useAuthContext } from "@/context/authContext";
 import React, { useEffect, useState } from "react";
 import { getTrips } from "@/service/trips";
