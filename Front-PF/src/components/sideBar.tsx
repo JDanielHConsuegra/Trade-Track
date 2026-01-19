@@ -23,7 +23,8 @@ import { IUser } from "@/types";
 interface SidebarItemProps {
   icon: ReactNode;
   label: string;
-  href: string;
+  href?: string;
+  funct?: () => void;
 }
 
 export function Sidebar() {
@@ -126,13 +127,27 @@ function SidebarContent({ user }: { user: IUser | null }) {
   );
 }
 
-export function SidebarItem({ icon, label, href }: SidebarItemProps): React.ReactElement {
+export function SidebarItem({ icon, label, href, funct }: SidebarItemProps): React.ReactElement {
   const pathname = usePathname();
   const isActive = pathname === href;
 
+  if(funct){
+    return (
+      <button
+        onClick={funct}
+        className={`flex items-center space-x-3 text-lg py-2 px-3 rounded-lg transition-colors ${
+          isActive ? "bg-blue-800 text-white" : "hover:bg-blue-900 text-gray-300"
+        }`}
+      >
+        {icon}
+        <span>{label}</span>
+      </button>
+    );
+  }
+
   return (
     <Link
-      href={href}
+      href={href || ""}
       className={`flex items-center space-x-3 text-lg py-2 px-3 rounded-lg transition-colors ${
         isActive ? "bg-blue-800 text-white" : "hover:bg-blue-900 text-gray-300"
       }`}

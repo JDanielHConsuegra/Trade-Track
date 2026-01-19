@@ -4,19 +4,25 @@ import { AiFillHome } from "react-icons/ai";
 import { IoCloseSharp } from "react-icons/io5";
 import { LuBriefcaseBusiness } from "react-icons/lu";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
-import { FaPlane, FaUser } from "react-icons/fa";
+import { FaPlane, FaSignOutAlt, FaUser } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
+
+
 
 import { useAuthContext } from "@/context/authContext";
+
 
 import { SidebarItem } from "./sideBar";
 
 
 
 
-
 export const MenuDesplegable = ({onClose}:{onClose: ()=> void }): ReactNode =>{
-  const {user} = useAuthContext()
+  const {user, resetUserData} = useAuthContext()
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+
 
   useEffect(() => {
     setIsOpen(true);
@@ -27,6 +33,11 @@ export const MenuDesplegable = ({onClose}:{onClose: ()=> void }): ReactNode =>{
     setTimeout(() => {
       onClose();
     }, 300);
+  };
+  const handleLogout = (): void => {
+    resetUserData();
+    toast.success("Sesión cerrada correctamente");
+    router.push("/login");
   };
  return (
              <div className={`fixed left-0 top-0 h-screen w-50 bg-blue-950 flex flex-col border-black shadow-lg shadow-black z-50 p-4 py-2 transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
@@ -100,6 +111,13 @@ export const MenuDesplegable = ({onClose}:{onClose: ()=> void }): ReactNode =>{
                 )
               }
                 
+              {/* <li> */}
+               <SidebarItem
+               funct={handleLogout}
+               label="Log-Out"
+               icon={<FaSignOutAlt />}
+               />
+               {/* </li> */}
 
              </ul>
              </div>
