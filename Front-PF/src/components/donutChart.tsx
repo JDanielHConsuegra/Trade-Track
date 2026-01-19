@@ -28,7 +28,7 @@ export function DonutChart({ data, title }: DonutChartProps) {
   return (
     <div className="bg-white border border-gray-300 p-6 rounded-xl shadow-md">
       <h2 className="text-xl text-center font-semibold mb-4">
-        {title} {data.map(item => item.name).join(", ")}
+        {title}
       </h2>
 
       <div className="relative w-full" style={{ height: 300, minHeight: 300 }}>

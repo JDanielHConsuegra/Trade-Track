@@ -96,32 +96,28 @@ const datosMensuales = meses.slice(0, 12).map((mes, idx) => {
     };
 });
 
-const datosUsuarios = [
-  {
-    name: "Admin",
-    value: users.filter(u => u.admin === true).length,
-  },
-  {
-    name: "Usuarios",
-    value: users.filter(u => u.admin === false).length,
-  },
-  
-];
+const datosUsuarios = Array.from(
+  users.reduce((acc, user) => {
+    const role = user.admin ? "Admin" : "Usuarios";
+    acc.set(role, (acc.get(role) || 0) + 1);
+    return acc;
+  }, new Map<string, number>())
+).map(([name, value]) => ({ name, value }));
 
-const datosProductosPorEstado = [
-  {
-    name: "Aprobados",
-    value: products.filter(p => p.state === ProductState.APPROVED).length,
-  },
-  {
-    name: "Pendientes",
-    value: products.filter(p => p.state === ProductState.PENDING).length,
-  },
-  {
-    name: "Cancelados",
-    value: products.filter(p => p.state === ProductState.CANCELLED).length,
-  },
-];
+const estadoLabelMap: Record<ProductState, string> = {
+  [ProductState.APPROVED]: "Aprobados",
+  [ProductState.PENDING]: "Pendientes",
+  [ProductState.CANCELLED]: "Cancelados",
+};
+
+const datosProductosPorEstado = Array.from(
+  products.reduce((acc, product) => {
+    const label = estadoLabelMap[product.state] ?? "Otros";
+    acc.set(label, (acc.get(label) || 0) + 1);
+    return acc;
+  }, new Map<string, number>())
+).map(([name, value]) => ({ name, value }));
+
 
 const datosProveedoresPorCiudad = Array.from(
   proveedores.reduce((acc, prov) => {
