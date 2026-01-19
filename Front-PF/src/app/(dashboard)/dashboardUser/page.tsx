@@ -76,20 +76,14 @@ const datosMensuales = meses.slice(0, 12).map((mes, idx) => {
   };
 });
 
-const datosProductosPorEstado = [
-  {
-    name: "Aprobados",
-    value: products.filter(p => p.state === ProductState.APPROVED).length,
-  },
-  {
-    name: "Pendientes",
-    value: products.filter(p => p.state === ProductState.PENDING).length,
-  },
-  {
-    name: "Cancelados",
-    value: products.filter(p => p.state === ProductState.CANCELLED).length,
-  },
-];
+const datosProductosPorEstado = Array.from(
+  products.reduce((acc, product) => {
+    const estado = product.state || "Otros";
+    acc.set(estado, (acc.get(estado) || 0) + 1);
+    return acc;
+  }, new Map<string, number>())
+).map(([name, value]) => ({ name, value }));
+
 
 const datosProveedoresPorCiudad = Array.from(
   proveedores.reduce((acc, prov) => {

@@ -73,20 +73,20 @@ export const Navbar: React.FC<IProps> = ({ title }) => {
       </Link>
       <Link
       href={"/viajes"}
-        className={`cursor-pointer hover:scale-110 transition-transform duration-300 flex flex-col items-center justify-center text-white text-center ${pathname === "/viajes" && " font-bold underline"}`}
+        className={`cursor-pointer hover:scale-110 transition-transform duration-300 flex flex-col items-center justify-center text-white text-center ${pathname.includes("viajes") && " font-bold underline"}`}
       >
       <FaPlane className="text-3xl md:text-4xl text-red-500" />
         <span className="text-lg">Viajes</span>
       </Link>
       <Link
       href={"/productos"}
-      className={`cursor-pointer hover:scale-110 transition-transform duration-300 flex flex-col items-center justify-center text-white text-center ${pathname === "/productos" && " font-bold underline"}`}>
+      className={`cursor-pointer hover:scale-110 transition-transform duration-300 flex flex-col items-center justify-center text-white text-center ${pathname.includes("productos") && " font-bold underline"}`}>
       <MdOutlineProductionQuantityLimits className="text-3xl md:text-4xl text-red-500" />
         <span className="text-lg">Productos</span>
       </Link>
       <Link
       href={"/proveedores"}
-      className={`cursor-pointer hover:scale-110 transition-transform duration-300 flex flex-col items-center justify-center text-white text-center ${pathname === "/proveedores" && " font-bold underline"}`}>
+      className={`cursor-pointer hover:scale-110 transition-transform duration-300 flex flex-col items-center justify-center text-white text-center ${pathname.includes("proveedores") && " font-bold underline"}`}>
 
       <LuBriefcaseBusiness className="text-3xl md:text-4xl text-red-500" />
         <span className="text-lg">Proveedores</span>

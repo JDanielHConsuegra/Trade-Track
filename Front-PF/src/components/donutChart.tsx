@@ -1,4 +1,6 @@
 "use client";
+
+import React from "react";
 import {
   Tooltip,
   Legend,
@@ -21,33 +23,46 @@ interface DonutChartProps {
 }
 
 export function DonutChart({ data, title }: DonutChartProps) {
+  const hasData = Array.isArray(data) && data.length > 0;
+
   return (
-    <div className="bg-white p-6 rounded-xl shadow-md">
-      <h2 className="text-xl font-semibold mb-4">{title}</h2>
-      <ResponsiveContainer width="100%" height={300}>
-        <PieChart>
-          <Pie
-            data={data}
-            cx="50%"
-            cy="50%"
-            innerRadius={60}
-            outerRadius={80}
-            fill="#8884d8"
-            paddingAngle={5}
-            dataKey="value"
-            labelLine={false}
-          >
-            {data.map((entry, index) => (
-              <Cell
-                key={`cell-${index}`}
-                fill={COLORS[index % COLORS.length]}
-              />
-            ))}
-          </Pie>
-          <Tooltip />
-          <Legend />
-        </PieChart>
-      </ResponsiveContainer>
+    <div className="bg-white border border-gray-300 p-6 rounded-xl shadow-md">
+      <h2 className="text-xl text-center font-semibold mb-4">
+        {title} {data.map(item => item.name).join(", ")}
+      </h2>
+
+      <div className="relative w-full" style={{ height: 300, minHeight: 300 }}>
+        {(!hasData) && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <p className="text-gray-500">No hay datos disponibles</p>
+          </div>
+        )}
+
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart>
+            <Pie
+              data={hasData ? data : [{ name: "empty", value: 1 }]} // evita crash
+              cx="50%"
+              cy="50%"
+              innerRadius={60}
+              outerRadius={80}
+              paddingAngle={hasData ? 5 : 0}
+              dataKey="value"
+              stroke="none"
+              isAnimationActive={hasData}
+              opacity={hasData ? 1 : 0} // oculta el “dummy”
+              label={hasData ? true : false}
+            >
+              {(hasData ? data : [{ name: "empty", value: 1 }]).map((_, index) => (
+                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+
+            {hasData && <Tooltip />}
+            {hasData && <Legend />}
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 }
