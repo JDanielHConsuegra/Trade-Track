@@ -1,17 +1,19 @@
 "use client"
+import React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
-import { ButtonRed } from "@/components/buttonRed"
-import { toast } from "react-toastify"
 import { useRouter } from "next/navigation"
+import { toast } from "react-toastify"
+
+import { ButtonRed } from "@/components/buttonRed"
 import { postRegister } from "@/service/auth"
 import { IUserRegister } from "@/types"
 import { Public } from "@/components/Public"
 
 
-export default function Register() {
+export default function Register(): React.JSX.Element {
   const initialValues: IUserRegister = {
     username: "",
     email: "",
@@ -31,26 +33,24 @@ export default function Register() {
 
   const  handleSubmit = async (
     values: IUserRegister,
-  ) => {
+  ): Promise<void> => {
     try {
     const res = await postRegister(values)
-    console.log("🔍 [DEBUG] Respuesta completa del registro:", res)
     
     if (res.message === "Usuario registrado exitosamente") {
-      console.log("🔍 [DEBUG] Registro exitoso, redirigiendo...")
       toast.success("Registro exitoso, Bienvenido " + values.username)
       setTimeout(()=> {
         router.push("/login")
       }, 2000)
       return
     }
+
     if (res.message === "Ese usuario ya existe, intenta con otro correo") {
       toast.error("Ese usuario ya existe, intenta con otro nombre de usuario")
       return
     }
     if (res.message === "Error al conectar con el servidor") {
       toast.error(res.message)
-      console.log("🔍 [DEBUG] Error al conectar con el servidor:", res.error);
       
       return
     }
@@ -60,8 +60,7 @@ export default function Register() {
       return
     }
   } catch (error) {
-      toast.error("Error interno")
-      console.error("Error al registrar el usuario:", error)
+      toast.error("Error interno" + error)
   }
   }
 

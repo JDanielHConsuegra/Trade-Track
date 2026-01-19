@@ -1,13 +1,14 @@
 "use client";
 
-import Link from "next/link";
 import React, { useState } from "react";
-import { useAuthContext } from "@/context/authContext";
+import { toast } from "react-toastify";
 import {  BiMenu } from 'react-icons/bi';
 import { AiOutlineRollback } from 'react-icons/ai';
 import { FaSignOutAlt } from 'react-icons/fa';
 import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
+
+import { useAuthContext } from "@/context/authContext";
+
 import { MenuDesplegable } from "./MenuDesplegable";
 
 
@@ -17,10 +18,10 @@ interface IProps {
 
 export const Navbar: React.FC<IProps> = ({ title }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const {user, resetUserData} = useAuthContext();
+  const { resetUserData} = useAuthContext();
   const router = useRouter();
 
-  const handleLogout = () => {
+  const handleLogout = (): void => {
     resetUserData();
     toast.success("Sesión cerrada correctamente");
     router.push("/login");

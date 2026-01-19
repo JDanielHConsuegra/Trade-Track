@@ -1,13 +1,18 @@
 // src/service/auth.ts
+import axios, { AxiosError } from "axios";
 
 import { IUserLogin, IUserRegister } from "@/types";
-import axios, { AxiosError } from "axios";
+
+interface Response {
+  message: string;
+  data?: unknown;
+  error?: unknown;
+}
+
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
 
-export const postRegister = async (data: IUserRegister) => {
-  console.log("🔍 [DEBUG] Iniciando postRegister con:", data);
-  console.log("🔍 [DEBUG] Haciendo petición a:", `${API_BASE_URL}/auth/register`);
+export const postRegister = async (data: IUserRegister): Promise<Response> => {
   
   try {
     const res = await axios.post(`${API_BASE_URL}/auth/register`, data, {
@@ -16,7 +21,7 @@ export const postRegister = async (data: IUserRegister) => {
         'Accept': 'application/json',
       },
     });
-    console.log("🔍 [DEBUG] Respuesta recibida:", res.status, res.data);
+    
 
     if (res.status === 201 || res.status === 200) {
       return {
@@ -24,13 +29,11 @@ export const postRegister = async (data: IUserRegister) => {
         data: res.data,
       };
     } else {
-      console.log("🔍 [DEBUG] Status inesperado:", res.status);
       return {
         message: "Algo inesperado ha ocurrido al registrar el usuario",
       };
     }
   } catch (error) {
-    console.error("❌ [DEBUG] Error en postRegister:", error);
     const err = error as AxiosError;
 
     if (err.response?.status === 409) {
@@ -47,12 +50,9 @@ export const postRegister = async (data: IUserRegister) => {
 };
 
 // Inicio de sesión
-export const postLogin = async (data: IUserLogin) => {
-  console.log("🔍 [DEBUG] Iniciando postLogin con:", data);
+export const postLogin = async (data: IUserLogin): Promise<Response> => {
   try {
-    console.log("🔍 [DEBUG] Haciendo petición a:", `${API_BASE_URL}/auth/login`);
     const res = await axios.post(`${API_BASE_URL}/auth/login`, data);
-    console.log("🔍 [DEBUG] Respuesta recibida:", res.status, res.data);
     
     if (res.status === 201 || res.status === 200) {
       return {
@@ -60,14 +60,12 @@ export const postLogin = async (data: IUserLogin) => {
         data: res.data,
       };
     } else {
-      console.log("🔍 [DEBUG] Status inesperado:", res.status);
       return {
         message: "Algo inesperado ha ocurrido al logear el usuario",
         error: res.data,
       };
     }
   } catch (error) {
-    console.error("❌ [DEBUG] Error en postLogin:", error);
     const err = error as AxiosError;
     if (err.response?.status === 401) {
       return {
