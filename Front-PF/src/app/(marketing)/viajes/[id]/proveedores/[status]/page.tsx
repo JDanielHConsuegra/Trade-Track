@@ -1,5 +1,5 @@
 "use client";
-
+import React from "react";
 import { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { FilterBar } from "@/components/FilterBar";

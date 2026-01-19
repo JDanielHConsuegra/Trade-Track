@@ -1,6 +1,6 @@
 "use client";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar } from "@/components/navbar";
 import { ProductDetails } from "@/components/ProductDetails";
 import { getProductById } from "@/service/providerProducts";

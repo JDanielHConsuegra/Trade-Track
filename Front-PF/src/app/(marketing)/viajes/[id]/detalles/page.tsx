@@ -7,7 +7,7 @@ import { getTripsById } from "@/service/trips"
 import { ITrip } from "@/types"
 import { getTripStatus } from "@/helpers/getTripStatus"
 import { useParams } from "next/navigation"
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useAuthContext } from "@/context/authContext"
 
 export default function NuevoProductoPage() {

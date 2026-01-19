@@ -6,12 +6,13 @@ import Link from "next/link";
 import { GiFastBackwardButton } from 'react-icons/gi';
 import { useParams } from "next/navigation";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Loading } from "@/components/loading";
+import { IProvider } from "@/types";
 
 export default function ProviderIdPage() {
     const { providerId } = useParams();
-    const [provider, setProvider] = useState<any>(null);
+    const [provider, setProvider] = useState<IProvider | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {

@@ -1,5 +1,6 @@
 import { NotificationSettings } from "@/types";
 import { ToggleSwitch } from "./toggleSwitch";
+import React from "react";
 
 interface NotificationSettingsProps {
   notifications: NotificationSettings;

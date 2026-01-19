@@ -1,3 +1,4 @@
+import React from "react";
 import { DashLink } from "@/components/DashLink";
 import { Private } from "@/components/Private";
 import Link from "next/link";

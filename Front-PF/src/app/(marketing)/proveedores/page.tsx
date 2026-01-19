@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { FilterBar } from "@/components/FilterBar"
 import { Navbar } from "@/components/navbar"
 import { SearchBar } from "@/components/searchBar"

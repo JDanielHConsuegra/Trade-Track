@@ -1,4 +1,5 @@
 import { FaRing, FaTrash } from "react-icons/fa";
+import React from "react";
 
 export function DataView({}) {
   return (

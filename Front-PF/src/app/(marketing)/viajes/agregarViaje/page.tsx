@@ -1,6 +1,7 @@
 //JUAN JOSE
 "use client";
 import * as Yup from "yup";
+import React from "react";
 import { ErrorMessage, Field, FieldArray, Form, Formik } from "formik";
 import { toast } from "react-toastify";
 import { ButtonRed } from "@/components/buttonRed";

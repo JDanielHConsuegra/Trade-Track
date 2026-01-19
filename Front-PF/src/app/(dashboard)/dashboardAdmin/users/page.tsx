@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { NotFound } from "@/components/notFound";
 import { Private } from "@/components/Private";
 import { IUser } from "@/types";

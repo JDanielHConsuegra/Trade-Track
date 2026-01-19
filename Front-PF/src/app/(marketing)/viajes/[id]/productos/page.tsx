@@ -8,7 +8,7 @@ import { FaPlus } from 'react-icons/fa';
 import { Pcontainer } from "@/components/Pcontainer";
 import { NotFound } from "@/components/notFound";
 import { Private } from "@/components/Private";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { IProduct } from "@/types";
 import { getTripsProducts } from "@/service/trips";

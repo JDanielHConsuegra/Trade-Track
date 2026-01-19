@@ -4,7 +4,7 @@ import { DonutChart } from "@/components/donutChart";
 import { UserStatsSection } from "@/components/profile/userStatsSection";
 import { IProduct, IProvider, ITrip, ProductState } from "@/types";
 import { useAuthContext } from "@/context/authContext";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getTrips } from "@/service/trips";
 import { getProductsByUser, getProvidersByUser } from "@/service/providerProducts";
 

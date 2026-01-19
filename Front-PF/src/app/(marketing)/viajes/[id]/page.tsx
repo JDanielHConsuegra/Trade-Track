@@ -7,7 +7,7 @@ import { Private } from "@/components/Private";
 import { getTripStatus } from "@/helpers/getTripStatus";
 import { getTripsById } from "@/service/trips";
 import { useAuthContext } from "@/context/authContext";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ITrip } from "@/types";
 import { useParams } from "next/navigation";
 import { Loading } from "@/components/loading";

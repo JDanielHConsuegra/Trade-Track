@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { FilterBar } from "@/components/FilterBar";
 import { LinkRed } from "@/components/linkRed";

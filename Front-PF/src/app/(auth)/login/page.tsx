@@ -1,21 +1,24 @@
 // src/app/auth/login/page.tsx
 "use client"
+import React from "react"
 import Image from "next/image"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
 import Link from "next/link"
 import {toast} from "react-toastify"
+
 import { ButtonRed } from "@/components/buttonRed"
 import { useAuthContext } from "@/context/authContext"
 import { postLogin } from "@/service/auth"
 import { Public } from "@/components/Public"
+import { IUser } from "@/types"
 
 interface LoginValues {
   username: string
   password: string
 }
 
-export default function Login() {
+export default function Login(): React.JSX.Element {
   const { saveUserData } = useAuthContext()
 
   const initialValues: LoginValues = {
@@ -29,9 +32,9 @@ export default function Login() {
   })
   const handleSubmit = async (
     values: LoginValues,
-  ) => {
+  ): Promise<void> => {
     try {
-      const res = await postLogin(values)
+      const res = await postLogin(values) as { message: string; data: { user: IUser; access_token: string } }
       
       if (res.message === "Usuario logeado exitosamente") {
         toast.success("Bienvenido " + values.username)
@@ -40,7 +43,6 @@ export default function Login() {
           token: res.data.access_token,
           login: true,
         })
-        console.log("Usuario logeado exitosamente:", res.data.user);
         
         return
       }
@@ -53,13 +55,12 @@ export default function Login() {
         toast.info(res.message)
       }
     } catch (error) {
-      toast.error("Error interno")
-      console.error("Error al iniciar sesión:", error)
+      toast.error("Error interno"+ error)
     }
   }
 
   // Función para manejar login con Google via Auth0
-  const handleGoogleLogin = () => {
+  const handleGoogleLogin = (): void => {
     // console.log("🔍 [GOOGLE LOGIN] Iniciando login con Google...")
     // console.log("🔍 [GOOGLE LOGIN] Todas las variables de entorno:")
     // console.log("🔍 [GOOGLE LOGIN] process.env:", process.env)
