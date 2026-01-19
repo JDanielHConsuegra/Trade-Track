@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState } from "react";
-import { toast } from "react-toastify";
 import {  BiMenu } from 'react-icons/bi';
 import { AiFillHome, AiOutlineRollback } from 'react-icons/ai';
 import { FaPlane, FaSignOutAlt, FaUser } from 'react-icons/fa';
